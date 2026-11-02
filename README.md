@@ -8,7 +8,7 @@ In high school, I used Quizlet extensively, which is a website that allows users
 
 ## How It Works
 
-Program uses an Java arraylist with 
+Program uses an Java Arraylist of Card objects to keep track of cards. It allows the user to answer these cards in sequential order, providing feedback on if the answers were right or not. The user is also able to display all current card information and edit, add, or remove cards.
 
 ![System diagram](docs/diagram.png)
 
@@ -25,22 +25,27 @@ Program uses an Java arraylist with
 - Run Main src file
 
 ```bash
-git clone https://github.com/you/your-project
-cd your-project
-./install.sh   # or whatever
+git clone https://github.com/woodColumn/FlashCard
+cd FlashCard
+Javac Main
+Javac Card
 ```
 
 ## Usage
 
-Start main program, 
+
+Start main program
 
 ```bash
-./backup.sh ~/Documents
+Java Main
 ```
 
 ## Roadmap
 
-- 
+- Ability to “favorite” certain cards and only study those
+- Ability to switch files within program
+- Randomized question display order
+- Way to organize cards based on number of times gotten incorrect/correct or ratio
 
 ## Author
 
