@@ -16,7 +16,7 @@ Program uses an Java Arraylist of Card objects to keep track of cards. It allows
 
 - **Language:** Java
 - **Libraries:** ArrayList, PrintWriter, BufferedReader, Scanner
-- **External tools:** InteliJ
+- **External tools:** InteliJ, Github
 
 ## Setup
 
