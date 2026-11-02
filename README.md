@@ -50,4 +50,4 @@ Java Main
 
 ## Author
 
-Logan, github.com/woodColumn
+Logan,[Github Account](https://github.com/woodColumn/Flash-Card-System)
