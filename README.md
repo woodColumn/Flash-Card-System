@@ -22,7 +22,8 @@ Program uses an Java Arraylist of Card objects to keep track of cards. It allows
 
 - Download files
 - Make sure to have a JVM so that java can run
-- Run Main src file
+- Compile Main java file
+- Compile Card java file
 
 ```bash
 git clone https://github.com/woodColumn/FlashCard
@@ -34,7 +35,7 @@ Javac Card
 ## Usage
 
 
-Start main program
+Excecute main java file
 
 ```bash
 Java Main
