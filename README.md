@@ -10,7 +10,7 @@ In high school, I used Quizlet extensively, which is a website that allows users
 
 Program uses an Java Arraylist of Card objects to keep track of cards. It allows the user to answer these cards in sequential order, providing feedback on if the answers were right or not. The user is also able to display all current card information and edit, add, or remove cards.
 
-![System diagram](docs/diagram.png)
+![System diagram](Flowchart.drawio.png)
 
 ## Tech Stack
 
