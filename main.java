@@ -25,6 +25,8 @@ public class main {
 
                 IO.println(fileName + " found");
 
+		break;
+
             } catch (IOException e) {
 
                 IO.println(fileName + " not found");
