@@ -87,9 +87,47 @@ public class main {
             String[] flashCardDataArray = flashCardData.split(",");                                     // add it to the cards arraylist
             FlashCard flashCard = new FlashCard(flashCardDataArray[0], flashCardDataArray[1]);
 
-            IO.println(flashCard.getQuestion() + " " + flashCard.getAnswer());                          // TEMPORARY PRINTING FOR TESTING PURPOSES, WILL REMOVE LATER
             cards.add(flashCard);
             flashCardData = input.readLine();
+        }
+
+    while (true) {                                                                                      // Main loop. Asks user if they want to view cards, study, or exit. Loop continues
+                                                                                                        // until user types "exit", in which case the program terminates
+            IO.println("Would you like to view cards, study, or exit?");
+            String userAnswer = IO.readln();
+
+            while (!(userAnswer.equals("view") || userAnswer.equals("study") || userAnswer.equals("exit"))) {
+
+                IO.println("Invalid response, please input \"view\", \"study\", or \"exit\"");
+                userAnswer = IO.readln();
+            }
+
+            if (userAnswer.equals("exit")) {
+		input.close();
+		output.close();
+                return;
+            }
+
+            if (userAnswer.equals("view")) {
+
+                viewCards(cards);
+
+            }
+
+        }
+
+
+    }
+
+    public void viewCards(ArrayList<FlashCard> cards) {
+
+        IO.println();
+
+        for (int i = 0; i < cards.size(); i++) {
+            IO.println("#" + (i + 1));
+            IO.println("Question: " + cards.get(i).getQuestion());
+            IO.println("Answer: " + cards.get(i).getAnswer());
+            IO.println();
         }
     }
 
