@@ -4,10 +4,17 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
+import java.util.ArrayList;
 
 public class main {
 
-    void main () {
+    void main () throws IOException {
+
+	ArrayList<FlashCard> cards = new ArrayList<>();                                        // This arraylist will hold each flash card in the current set
+
+	BufferedReader input;
+	BufferedWriter output;
+
 
         IO.println("Flashcard System has started");						
 
@@ -21,8 +28,8 @@ public class main {
             try {                                                                               // Try to set up buffered reader and writer using the file user inputed
                                                                                                 // (file name = flashcard set name + ".txt")
 
-            BufferedReader input = new BufferedReader(new FileReader(fileName + ".txt"));
-            BufferedWriter output = new BufferedWriter(new FileWriter(fileName + ".txt"));
+            input = new BufferedReader(new FileReader(fileName + ".txt"));
+            output = new BufferedWriter(new FileWriter(fileName + ".txt", true));
 
                 IO.println(fileName + " found");                                                // If BufferedReader is successfully created, the file must exist. Inform the user and break
                                                                                                 // out of the loop
@@ -51,8 +58,8 @@ public class main {
                         File cardFile = new File(fileName + ".txt");                            // If the user answers "no" continue the loop
                         cardFile.createNewFile();
 
-                        BufferedReader input = new BufferedReader(new FileReader(fileName + ".txt"));
-                        BufferedWriter output = new BufferedWriter(new FileWriter(fileName + ".txt"));
+                        input = new BufferedReader(new FileReader(fileName + ".txt"));
+                        output = new BufferedWriter(new FileWriter(fileName + ".txt", true));
 
                         break;
 
@@ -63,6 +70,26 @@ public class main {
                 }
 
             }
+        }
+
+	String flashCardData;                                                                           // String to contain one line of the flash card set file (question,answer)
+
+        try {
+
+            flashCardData = input.readLine();                                                           // Read in one line of the file
+
+        } catch (IOException e) {
+            throw new IOException();
+        }
+
+        while (!(flashCardData == null)) {                                                              // While there is still data in the file, use .split to make an array containing 
+                                                                                                        // each flash card's data, then use this data to create a new Flash card and
+            String[] flashCardDataArray = flashCardData.split(",");                                     // add it to the cards arraylist
+            FlashCard flashCard = new FlashCard(flashCardDataArray[0], flashCardDataArray[1]);
+
+            IO.println(flashCard.getQuestion() + " " + flashCard.getAnswer());                          // TEMPORARY PRINTING FOR TESTING PURPOSES, WILL REMOVE LATER
+            cards.add(flashCard);
+            flashCardData = input.readLine();
         }
     }
 
