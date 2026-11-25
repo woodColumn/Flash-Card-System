@@ -119,9 +119,16 @@ public class main {
 
     }
 
-    public void viewCards(ArrayList<FlashCard> cards) {
+
+    public void viewCards(ArrayList<FlashCard> cards) {                         // Function that displays cards
 
         IO.println();
+
+        if (cards.size() == 0) {                                                // If there are no cards, display unique message
+
+            IO.println("No cards");
+            IO.println();
+        }
 
         for (int i = 0; i < cards.size(); i++) {
             IO.println("#" + (i + 1));
