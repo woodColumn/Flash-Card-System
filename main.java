@@ -11,25 +11,25 @@ public class main {
 
         IO.println("Flashcard System has started");						
 
-        while (true) {										// While loop that runs until either a user's inputed flashcard set is found, or
-												// a new file is successfully created
+        while (true) {                                                                          // While loop that runs until either a user's inputed flashcard set is found, or
+                                                                                                // a new file is successfully created
 											
             IO.println("Input name of flashcard set");
 
             String fileName = IO.readln();
 
-            try {										// Try to set up buffered reader and writer using the file user inputed
-												// (file name = flashcard set name + ".txt")
+            try {                                                                               // Try to set up buffered reader and writer using the file user inputed
+                                                                                                // (file name = flashcard set name + ".txt")
 
             BufferedReader input = new BufferedReader(new FileReader(fileName + ".txt"));
             BufferedWriter output = new BufferedWriter(new FileWriter(fileName + ".txt"));
 
-                IO.println(fileName + " found");						// If BufferedReader is successfully created, the file must exist. Inform the user and break
-												// out of the loop
+                IO.println(fileName + " found");                                                // If BufferedReader is successfully created, the file must exist. Inform the user and break
+                                                                                                // out of the loop
 		break;
 
-            } catch (IOException e) {								// If BufferedReader is not successfully created, the file could not be found. Inform the
-												// user and ask if they would like to create a new flashcard set
+            } catch (IOException e) {                                                           // If BufferedReader is not successfully created, the file could not be found. Inform the
+                                                                                                // user and ask if they would like to create a new flashcard set
 
                 IO.println(fileName + " not found");						
                 IO.println("Would you like to create a new flashcard set named " + fileName + "?");
@@ -37,7 +37,7 @@ public class main {
                 String userAnswer = IO.readln();
 
 
-                while (!(userAnswer.equals("yes") || userAnswer.equals("no"))) {		// Repeatedly ask for user input until it is either "yes" or "no"
+                while (!(userAnswer.equals("yes") || userAnswer.equals("no"))) {                 // Repeatedly ask for user input until it is either "yes" or "no"
 
                     IO.println("Invalid response, please input \"yes\" or \"no\"");
                     userAnswer = IO.readln();
