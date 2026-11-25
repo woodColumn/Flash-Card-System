@@ -44,11 +44,11 @@ public class main {
                 }
 
 
-                if (userAnswer.equals("yes")) {							// If user answers "yes" try to create a new file using the inputed flashcard set name.
-												// If the file is successfully created, break out of the loop.
-                    try {									// If the file is not successfully created, indicated by "new BufferedReader" causing an
-												// error, inform the user and continue the loop
-                        File cardFile = new File(fileName + ".txt");				// If the user answers "no" continue the loop
+                if (userAnswer.equals("yes")) {                                                 // If user answers "yes" try to create a new file using the inputed flashcard set name.
+                                                                                                // If the file is successfully created, break out of the loop.
+                    try {                                                                       // If the file is not successfully created, indicated by "new BufferedReader" causing an
+                                                                                                // error, inform the user and continue the loop
+                        File cardFile = new File(fileName + ".txt");                            // If the user answers "no" continue the loop
                         cardFile.createNewFile();
 
                         BufferedReader input = new BufferedReader(new FileReader(fileName + ".txt"));
