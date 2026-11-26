@@ -33,12 +33,12 @@ public class main {
 
                 IO.println(fileName + " found");                                                // If BufferedReader is successfully created, the file must exist. Inform the user and break
                                                                                                 // out of the loop
-		break;
+                break;
 
             } catch (IOException e) {                                                           // If BufferedReader is not successfully created, the file could not be found. Inform the
                                                                                                 // user and ask if they would like to create a new flashcard set
 
-                IO.println(fileName + " not found");						
+                IO.println(fileName + " not found");
                 IO.println("Would you like to create a new flashcard set named " + fileName + "?");
 
                 userAnswer = IO.readln();
@@ -71,19 +71,19 @@ public class main {
             }
         }
 
-	String flashCardData;                                                                           // String to contain one line of the flash card set file (question,answer)
+        String flashCardData;                   // String to contain one line of the flash card set file (question,answer)
 
         try {
 
-            flashCardData = input.readLine();                                                           // Read in one line of the file
+            flashCardData = input.readLine();   // Read in one line of the file
 
         } catch (IOException e) {
             throw new IOException();
         }
 
-        while (!(flashCardData == null)) {                                                              // While there is still data in the file, use .split to make an array containing 
-                                                                                                        // each flash card's data, then use this data to create a new Flash card and
-            String[] flashCardDataArray = flashCardData.split(",");                                     // add it to the cards arraylist
+        while (!(flashCardData == null)) {                                                          // While there is still data in the file, use .split to make an array containing
+                                                                                                    // each flash card's data, then use this data to create a new Flash card and
+            String[] flashCardDataArray = flashCardData.split(",");                                 // add it to the cards arraylist
             FlashCard flashCard = new FlashCard(flashCardDataArray[0], flashCardDataArray[1]);
 
             cards.add(flashCard);
@@ -92,8 +92,8 @@ public class main {
 
         input.close();
 
-    while (true) {                                                                                      // Main loop. Asks user if they want to view cards, study, or exit. Loop continues
-                                                                                                        // until user types "exit", in which case the program terminates
+        while (true) {                                                              // Main loop. Asks user if they want to view cards, study, or exit. Loop continues
+                                                                                    // until user types "exit", in which case the program terminates
             IO.println("Would you like to view cards, study, or exit?");
             userAnswer = IO.readln();
 
@@ -139,8 +139,6 @@ public class main {
 
 
     public void updateFile(ArrayList<FlashCard> cards, String fileName) throws IOException {        //
-
-
 
         BufferedWriter output = new BufferedWriter(new FileWriter(fileName + ".txt"));
 
