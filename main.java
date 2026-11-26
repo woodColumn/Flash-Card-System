@@ -138,29 +138,45 @@ public class main {
                 userAnswer = IO.readln();
             }
 
-            if (userAnswer.equals("add")) {                     // If user selects add, ask for the question and answer, not allowing commas (they mess up csv file)
-                                                                // After the question and answer are gotten, create a new flashcard and update the file
-                IO.println("What is the question?");
+            if (userAnswer.equals("add")) {                     // If user selects add, ask for the question and answer until valid inputs
+                                                                // A valid input cannot have a comma (messes up file) or be empty (messes up reading file)
+                IO.println("What is the question?");            // After the question and answer are gotten, create a new flashcard and update the file
                 String question = IO.readln();
 
-                while (question.indexOf(",") != -1) {
-                    IO.println("Question cannot contain commas. Try again");
+                while (true) {
+
+                    if (question.indexOf(",") != -1) {
+                        IO.println("Question cannot contain commas. Try again");
+                    } else if (question == null || question.equals("")) {
+                        IO.println("What is the question?");
+                    } else {
+                        break;
+                    }
+
                     question = IO.readln();
                 }
 
                 IO.println("What is the answer?");
                 String answer = IO.readln();
 
-                while (answer.indexOf(",") != -1) {
-                    IO.println("Answer cannot contain commas. Try again");
-                    answer = IO.readln();
-                }
+                    while (true) {
+
+                        if (answer.indexOf(",") != -1) {
+                            IO.println("Answer cannot contain commas. Try again");
+                        } else if (answer == null || answer.equals("")) {
+                            IO.println("What is the answer?");
+                        } else {
+                            break;
+                        }
+
+                        answer = IO.readln();
+                    }
 
                 cards.add(new FlashCard(question, answer));
                 updateFile(cards, fileName);
 
-            } else if (userAnswer.equals("edit")) {             // If user selects edit, and there are no cards, repeat loop (will then display that there are no cards)
-                                                                // If there are cards, ask user to enter card number until valid
+            } else if (userAnswer.equals("edit")) {     // If user selects edit, and there are no cards, repeat loop (will then display that there are no cards)
+                                                        // If there are cards, ask user to enter card number until valid
                 int cardNumber;
 
                 if (cards.size() != 0) {
@@ -205,8 +221,16 @@ public class main {
                         IO.println("What is the question?");
                         String question = IO.readln();
 
-                        while (question.indexOf(",") != -1) {
-                            IO.println("Question cannot contain commas. Try again");
+                        while (true) {
+
+                            if (question.indexOf(",") != -1) {
+                                IO.println("Question cannot contain commas. Try again");
+                            } else if (question == null || question.equals("")) {
+                                IO.println("What is the question?");
+                            } else {
+                                break;
+                            }
+
                             question = IO.readln();
                         }
 
@@ -218,8 +242,16 @@ public class main {
                         IO.println("What is the answer?");
                         String answer = IO.readln();
 
-                        while (answer.indexOf(",") != -1) {
-                            IO.println("Answer cannot contain commas. Try again");
+                        while (true) {
+
+                            if (answer.indexOf(",") != -1) {
+                                IO.println("Answer cannot contain commas. Try again");
+                            } else if (answer == null || answer.equals("")) {
+                                IO.println("What is the answer?");
+                            } else {
+                                break;
+                            }
+
                             answer = IO.readln();
                         }
 
@@ -227,6 +259,9 @@ public class main {
                         updateFile(cards, fileName);
 
                     } else if (userAnswer.equals("delete")) {
+
+                        cards.remove(cardNumber - 1);
+                        updateFile(cards, fileName);
 
                     }
 
