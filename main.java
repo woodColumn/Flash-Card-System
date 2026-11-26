@@ -10,14 +10,14 @@ public class main {
 
     void main () throws IOException {
 
-        String fileName;                                                                       // This String will hold the file name without the ".txt" ending
-        String userAnswer;                                                                     // This String will hold user inputs
-        ArrayList<FlashCard> cards = new ArrayList<>();                                        // This arraylist will hold each flash card in the current set
+        String fileName;                                                                        // This String will hold the file name without the ".txt" ending
+        String userAnswer;                                                                      // This String will hold user inputs
+        ArrayList<FlashCard> cards = new ArrayList<>();                                         // This arraylist will hold each flash card in the current set
 
-	BufferedReader input;
+    BufferedReader input;
 
 
-        IO.println("Flashcard System has started");
+    IO.println("Flashcard System has started");
 
         while (true) {                                                                          // While loop that runs until either a user's inputed flashcard set is found, or
                                                                                                 // a new file is successfully created
