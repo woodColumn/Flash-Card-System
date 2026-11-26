@@ -10,10 +10,11 @@ public class main {
 
     void main () throws IOException {
 
+        String fileName;                                                                       // This String will hold the file name without the ".txt" ending
+        String userAnswer;                                                                     // This String will hold user inputs
 	ArrayList<FlashCard> cards = new ArrayList<>();                                        // This arraylist will hold each flash card in the current set
 
 	BufferedReader input;
-	BufferedWriter output;
 
 
         IO.println("Flashcard System has started");						
@@ -23,13 +24,12 @@ public class main {
 											
             IO.println("Input name of flashcard set");
 
-            String fileName = IO.readln();
+            fileName = IO.readln();
 
-            try {                                                                               // Try to set up buffered reader and writer using the file user inputed
-                                                                                                // (file name = flashcard set name + ".txt")
+            try {                                                                               // Try to set up buffered reader using the file user inputed
+                                                                                                // (actual name of file = fileName + ".txt")
 
-            input = new BufferedReader(new FileReader(fileName + ".txt"));
-            output = new BufferedWriter(new FileWriter(fileName + ".txt", true));
+                input = new BufferedReader(new FileReader(fileName + ".txt"));
 
                 IO.println(fileName + " found");                                                // If BufferedReader is successfully created, the file must exist. Inform the user and break
                                                                                                 // out of the loop
@@ -41,7 +41,7 @@ public class main {
                 IO.println(fileName + " not found");						
                 IO.println("Would you like to create a new flashcard set named " + fileName + "?");
 
-                String userAnswer = IO.readln();
+                userAnswer = IO.readln();
 
 
                 while (!(userAnswer.equals("yes") || userAnswer.equals("no"))) {                 // Repeatedly ask for user input until it is either "yes" or "no"
@@ -59,7 +59,6 @@ public class main {
                         cardFile.createNewFile();
 
                         input = new BufferedReader(new FileReader(fileName + ".txt"));
-                        output = new BufferedWriter(new FileWriter(fileName + ".txt", true));
 
                         break;
 
@@ -91,10 +90,12 @@ public class main {
             flashCardData = input.readLine();
         }
 
+        input.close();
+
     while (true) {                                                                                      // Main loop. Asks user if they want to view cards, study, or exit. Loop continues
                                                                                                         // until user types "exit", in which case the program terminates
             IO.println("Would you like to view cards, study, or exit?");
-            String userAnswer = IO.readln();
+            userAnswer = IO.readln();
 
             while (!(userAnswer.equals("view") || userAnswer.equals("study") || userAnswer.equals("exit"))) {
 
@@ -104,7 +105,6 @@ public class main {
 
             if (userAnswer.equals("exit")) {
 		input.close();
-		output.close();
                 return;
             }
 
