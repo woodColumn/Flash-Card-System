@@ -51,11 +51,11 @@ public class main {
                 }
 
 
-                if (userAnswer.equals("yes")) {                                                 // If user answers "yes" try to create a new file using the inputed flashcard set name.
-                                                                                                // If the file is successfully created, break out of the loop.
-                    try {                                                                       // If the file is not successfully created, indicated by "new BufferedReader" causing an
-                                                                                                // error, inform the user and continue the loop
-                        File cardFile = new File(fileName + ".txt");                            // If the user answers "no" continue the loop
+                if (userAnswer.equals("yes")) {                                             // If user answers "yes" try to create a new file using the inputed flashcard set name.
+                                                                                            // If the file is successfully created, break out of the loop.
+                    try {                                                                   // If the file is not successfully created, indicated by "new BufferedReader" causing an
+                                                                                            // error, inform the user and continue the loop
+                        File cardFile = new File(fileName + ".txt");                        // If the user answers "no" continue the loop
                         cardFile.createNewFile();
 
                         input = new BufferedReader(new FileReader(fileName + ".txt"));
@@ -119,26 +119,67 @@ public class main {
     }
 
 	
-    public void viewCards(ArrayList<FlashCard> cards, String fileName) throws IOException {     // Function that displays cards
+    public void viewCards(ArrayList<FlashCard> cards, String fileName) throws IOException {     // Function that displays cards, and allows for editing
 
         IO.println();
 
-        if (cards.size() == 0) {                                                // If there are no cards, display unique message
+        String userAnswer;
 
-            IO.println("No cards");
-            IO.println();
-        }
+        while (true) {
 
-        for (int i = 0; i < cards.size(); i++) {                               // Display card information
-            IO.println("#" + (i + 1));
-            IO.println("Question: " + cards.get(i).getQuestion());
-            IO.println("Answer: " + cards.get(i).getAnswer());
-            IO.println();
+            if (cards.size() == 0) {                                                // If there are no cards, display unique message
+
+                IO.println("No cards");
+                IO.println();
+            }
+
+            for (int i = 0; i < cards.size(); i++) {                                // Display card information
+                IO.println("#" + (i + 1));
+                IO.println("Question: " + cards.get(i).getQuestion());
+                IO.println("Answer: " + cards.get(i).getAnswer());
+                IO.println();
+            }
+
+            IO.println("Would you like to add a card, edit a card, or return?");
+            userAnswer = IO.readln();
+
+            while (!(userAnswer.equals("add") || userAnswer.equals("edit") || userAnswer.equals("return"))) {   // Ask user if they would like to "add", "edit", or "return"
+                                                                                                                // until they type a valid input
+                IO.println("Invalid response, please input \"add\", \"edit\", or \"return\"");
+                userAnswer = IO.readln();
+            }
+
+            if (userAnswer.equals("add")) {                     // If user selects add, ask for the question and answer, not allowing commas (they mess up csv file)
+                                                                // After the question and answer are gotten, create a new flashcard and update the file
+                IO.println("What is the question?");
+                String question = IO.readln();
+
+                while (question.indexOf(",") != -1) {
+                    IO.println("Question cannot contain commas. Try again");
+                    question = IO.readln();
+                }
+
+                IO.println("What is the answer?");
+                String answer = IO.readln();
+
+                while (answer.indexOf(",") != -1) {
+                    IO.println("Answer cannot contain commas. Try again");
+                    answer = IO.readln();
+                }
+
+                cards.add(new FlashCard(question, answer));
+                updateFile(cards, fileName);
+
+            } else if (userAnswer.equals("edit")) {
+
+            } else {        // If the user didn't type either "add" or "edit", they must've typed return. Returns to main loop.
+                return;
+            }
         }
     }
 
 
-    public void updateFile(ArrayList<FlashCard> cards, String fileName) throws IOException {        //
+    public void updateFile(ArrayList<FlashCard> cards, String fileName) throws IOException {    // Rewrites flashcard set csv file using current card array
 
         BufferedWriter output = new BufferedWriter(new FileWriter(fileName + ".txt"));
 
