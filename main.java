@@ -125,20 +125,9 @@ public class main {
 
         String userAnswer;
 
-        while (true) {
-
-            if (cards.size() == 0) {                                                // If there are no cards, display unique message
-
-                IO.println("No cards");
-                IO.println();
-            }
-
-            for (int i = 0; i < cards.size(); i++) {                                // Display card information
-                IO.println("#" + (i + 1));
-                IO.println("Question: " + cards.get(i).getQuestion());
-                IO.println("Answer: " + cards.get(i).getAnswer());
-                IO.println();
-            }
+        while (true) {                                                                          // Loop that displays cards, then allows user to make changes until
+                                                                                                // user decides to return
+            displayCards(cards);
 
             IO.println("Would you like to add a card, edit a card, or return?");
             userAnswer = IO.readln();
@@ -170,7 +159,78 @@ public class main {
                 cards.add(new FlashCard(question, answer));
                 updateFile(cards, fileName);
 
-            } else if (userAnswer.equals("edit")) {
+            } else if (userAnswer.equals("edit")) {             // If user selects edit, and there are no cards, repeat loop (will then display that there are no cards)
+                                                                // If there are cards, ask user to enter card number until valid
+                int cardNumber;
+
+                if (cards.size() != 0) {
+
+                    IO.println("Select flashcard number to edit");
+
+                    while (true) {                              // Loop that continually prompts user for card number until they put in a valid one
+
+                        try {
+
+                            cardNumber = Integer.parseInt(IO.readln());
+
+                            if (cardNumber < 1 || cardNumber > cards.size()) {
+
+                                IO.println("Card #" + cardNumber + " does not exist. Please select from one of the following cards");
+                                displayCards(cards);
+
+                            } else {
+                                break;
+                            }
+
+                        } catch (Exception e) {
+
+                            IO.println("Type a whole number");
+
+                        }
+
+                    }
+
+
+                    IO.println("Would you like to change the question, change the answer, delete, or quit?");       // Asks user how they would like to edit the card until valid input
+                    userAnswer = IO.readln();
+
+                    while (!(userAnswer.equals("question") || userAnswer.equals("answer") || userAnswer.equals("delete") || userAnswer.equals("quit"))) {
+
+                        IO.println("Invalid response, please input \"question\", \"answer\", \"delete\", or \"quit\"");
+                        userAnswer = IO.readln();
+                    }
+
+                    if (userAnswer.equals("question")) {        // If user selects question, prompt them for the new question until it is valid.
+                                                                // Once the question is valid, change the selected card's question and update the file
+                        IO.println("What is the question?");
+                        String question = IO.readln();
+
+                        while (question.indexOf(",") != -1) {
+                            IO.println("Question cannot contain commas. Try again");
+                            question = IO.readln();
+                        }
+
+                        cards.get(cardNumber - 1).setQuestion(question);
+                        updateFile(cards, fileName);
+
+                    } else if (userAnswer.equals("answer")) {   // If user selects answer, prompt them for the new answer until it is valid.
+                                                                // Once the answer is valid, change the selected card's answer and update the file
+                        IO.println("What is the answer?");
+                        String answer = IO.readln();
+
+                        while (answer.indexOf(",") != -1) {
+                            IO.println("Answer cannot contain commas. Try again");
+                            answer = IO.readln();
+                        }
+
+                        cards.get(cardNumber - 1).setAnswer(answer);
+                        updateFile(cards, fileName);
+
+                    } else if (userAnswer.equals("delete")) {
+
+                    }
+
+                }
 
             } else {        // If the user didn't type either "add" or "edit", they must've typed return. Returns to main loop.
                 return;
@@ -189,6 +249,25 @@ public class main {
         }
 
         output.close();
+    }
+
+
+    public void displayCards(ArrayList<FlashCard> cards) {                      // Method to display current card information
+
+        IO.println();
+
+        if (cards.size() == 0) {                                                // If there are no cards, display unique message
+
+            IO.println("No cards");
+            IO.println();
+        }
+
+        for (int i = 0; i < cards.size(); i++) {                                // Display card information
+            IO.println("#" + (i + 1));
+            IO.println("Question: " + cards.get(i).getQuestion());
+            IO.println("Answer: " + cards.get(i).getAnswer());
+            IO.println();
+        }
     }
 
 }
