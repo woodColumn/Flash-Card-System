@@ -12,16 +12,16 @@ public class main {
 
         String fileName;                                                                       // This String will hold the file name without the ".txt" ending
         String userAnswer;                                                                     // This String will hold user inputs
-	ArrayList<FlashCard> cards = new ArrayList<>();                                        // This arraylist will hold each flash card in the current set
+        ArrayList<FlashCard> cards = new ArrayList<>();                                        // This arraylist will hold each flash card in the current set
 
 	BufferedReader input;
 
 
-        IO.println("Flashcard System has started");						
+        IO.println("Flashcard System has started");
 
         while (true) {                                                                          // While loop that runs until either a user's inputed flashcard set is found, or
                                                                                                 // a new file is successfully created
-											
+
             IO.println("Input name of flashcard set");
 
             fileName = IO.readln();
@@ -44,7 +44,7 @@ public class main {
                 userAnswer = IO.readln();
 
 
-                while (!(userAnswer.equals("yes") || userAnswer.equals("no"))) {                 // Repeatedly ask for user input until it is either "yes" or "no"
+                while (!(userAnswer.equals("yes") || userAnswer.equals("no"))) {                // Repeatedly ask for user input until it is either "yes" or "no"
 
                     IO.println("Invalid response, please input \"yes\" or \"no\"");
                     userAnswer = IO.readln();
@@ -104,13 +104,12 @@ public class main {
             }
 
             if (userAnswer.equals("exit")) {
-		input.close();
                 return;
             }
 
             if (userAnswer.equals("view")) {
 
-                viewCards(cards);
+                viewCards(cards, fileName);
 
             }
 
@@ -119,8 +118,8 @@ public class main {
 
     }
 
-
-    public void viewCards(ArrayList<FlashCard> cards) {                         // Function that displays cards
+	
+    public void viewCards(ArrayList<FlashCard> cards, String fileName) throws IOException {     // Function that displays cards
 
         IO.println();
 
@@ -130,12 +129,27 @@ public class main {
             IO.println();
         }
 
-        for (int i = 0; i < cards.size(); i++) {
+        for (int i = 0; i < cards.size(); i++) {                               // Display card information
             IO.println("#" + (i + 1));
             IO.println("Question: " + cards.get(i).getQuestion());
             IO.println("Answer: " + cards.get(i).getAnswer());
             IO.println();
         }
+    }
+
+
+    public void updateFile(ArrayList<FlashCard> cards, String fileName) throws IOException {        //
+
+
+
+        BufferedWriter output = new BufferedWriter(new FileWriter(fileName + ".txt"));
+
+        for (int i = 0; i < cards.size(); i++) {
+
+            output.write(cards.get(i).getQuestion() + "," + cards.get(i).getAnswer() + "\n");
+        }
+
+        output.close();
     }
 
 }
