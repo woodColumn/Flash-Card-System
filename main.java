@@ -329,6 +329,7 @@ public class main {
 
         boolean showAnswers = false;                    // If true, show the correct answer when user gives incorrect answer
         boolean random = false;                         // If true, display questions in a random order
+        boolean onlyFavorite = false;                   // If true, only test the user on cards they have marked as favorite
         String userAnswer;
         int testCorrectNum = 0;                         // Keeps track of how many questions the user got correct for a single test
 
@@ -336,7 +337,6 @@ public class main {
         IO.println("Randomize order?");
 
         userAnswer = IO.readln();
-
         while (userAnswer == null || !(userAnswer.equals("yes") || userAnswer.equals("no"))) {          // Repeatedly ask for user input until it is either "yes" or "no"
 
             IO.println("Invalid response, please input \"yes\" or \"no\"");
@@ -351,7 +351,6 @@ public class main {
         IO.println("Show answers?");
 
         userAnswer = IO.readln();
-
         while (userAnswer == null || !(userAnswer.equals("yes") || userAnswer.equals("no"))) {          // Repeatedly ask for user input until it is either "yes" or "no"
 
             IO.println("Invalid response, please input \"yes\" or \"no\"");
@@ -360,6 +359,22 @@ public class main {
 
         if (userAnswer.equals("yes")) {             // If user selects yes, flag show answers as true
             showAnswers = true;
+        }
+
+        if (checkFavoriteExists(cards)) {
+
+            IO.println("Only use favorited cards?");
+
+            userAnswer = IO.readln();
+            while (userAnswer == null || !(userAnswer.equals("yes") || userAnswer.equals("no"))) {          // Repeatedly ask for user input until it is either "yes" or "no"
+
+                IO.println("Invalid response, please input \"yes\" or \"no\"");
+                userAnswer = IO.readln();
+            }
+
+            if (userAnswer.equals("yes")) {             // If user selects yes, flag only favorite as true
+                onlyFavorite = true;
+            }
         }
 
 
@@ -464,6 +479,20 @@ public class main {
         }
 
         return randomizedCards;
+    }
+
+
+    public boolean checkFavoriteExists(ArrayList<FlashCard> cards) {        // Returns true if at least one card in the given
+                                                                            // array is marked as favorite
+        for (int i = 0; i < cards.size(); i++) {
+
+            if (cards.get(i).getFavoriteStatus()) {
+                return true;
+            }
+
+        }
+
+        return false;
     }
 
 }
