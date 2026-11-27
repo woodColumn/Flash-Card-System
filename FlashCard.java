@@ -56,11 +56,11 @@ public class FlashCard {
         this.answer = answer;
     }
 
-    public void setNumCorrect(int numCorrect) {
-        this.numCorrect = numCorrect;
+    public void addCorrect() {
+        numCorrect++;
     }
 
-    public void setNumIncorrect() {
-        this.numIncorrect = numIncorrect;
+    public void addIncorrect() {
+        numIncorrect++;
     }
 }
