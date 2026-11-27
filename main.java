@@ -9,11 +9,11 @@ import java.util.ArrayList;
 /**
  *  Flash Card System Main
  *
- * Flash card system. Allows users to view flash cards or study. After viewing cards, allows users to add, edit, and delete cards.
+ * Flash card system. Allows users to view flash cards or test. After viewing cards, allows users to add, edit, and delete cards.
  * Flash card data is saved to a file in csv format, and can be read upon starting the program if an existing flash card set is inputted.
  *
  * @author Logan Gierahn
- * @version November 26, 2026
+ * @version November 27, 2026
  *
  */
 
@@ -103,14 +103,14 @@ public class main {
 
         input.close();
 
-        while (true) {                                                              // Main loop. Asks user if they want to view cards, study, or exit. Loop continues
+        while (true) {                                                              // Main loop. Asks user if they want to view cards, test, or exit. Loop continues
                                                                                     // until user types "exit", in which case the program terminates
-            IO.println("Would you like to view cards, study, or exit?");
+            IO.println("Would you like to view cards, test, or exit?");
             userAnswer = IO.readln();
 
-            while (!(userAnswer.equals("view") || userAnswer.equals("study") || userAnswer.equals("exit"))) {
+            while (!(userAnswer.equals("view") || userAnswer.equals("test") || userAnswer.equals("exit"))) {
 
-                IO.println("Invalid response, please input \"view\", \"study\", or \"exit\"");
+                IO.println("Invalid response, please input \"view\", \"test\", or \"exit\"");
                 userAnswer = IO.readln();
             }
 
@@ -124,9 +124,9 @@ public class main {
 
             }
 
-            if (userAnswer.equals("study")) {
+            if (userAnswer.equals("test")) {
 
-                studyCards(cards, fileName);
+                testCards(cards, fileName);
 
             }
 
@@ -290,11 +290,12 @@ public class main {
         }
     }
 
-    public void studyCards(ArrayList<FlashCard> cards, String fileName) throws IOException {
+    public void testCards(ArrayList<FlashCard> cards, String fileName) throws IOException {
 
         boolean showAnswers = false;                    // If true, show the correct answer when user gives incorrect answer
         boolean random = false;                         // If true, display questions in a random order
         String userAnswer;
+        int testCorrectNum = 0;                         // Keeps track of how many questions the user got correct for a single test
 
 
         IO.println("Randomize order?");
@@ -348,6 +349,8 @@ public class main {
 
                 testCards.get(i).addCorrect();
 
+                testCorrectNum++;
+
             } else {
 
                 IO.println("Incorrect !\n");                    // If user answer is incorrect, inform them and update the amount incorrect
@@ -362,10 +365,19 @@ public class main {
 
             updateFile(cards, fileName);
         }
+
+        IO.println("The test has concluded");                                           // Display test results
+        IO.println();
+        IO.println("Number correct: " + testCorrectNum);
+        IO.println();
+        IO.println("Number incorrect: " + (cards.size() - testCorrectNum));
+        IO.println();
+        IO.println("Percent correct: " + String.format("%.2f", ((double)testCorrectNum / cards.size()) * 100) + "%");
+        IO.println();
     }
 
 
-    public void updateFile(ArrayList<FlashCard> cards, String fileName) throws IOException {    // Rewrites flashcard set csv file using current card array
+    public void updateFile(ArrayList<FlashCard> cards, String fileName) throws IOException {    // Rewrites flash card set csv file using current card array
 
         BufferedWriter output = new BufferedWriter(new FileWriter(fileName + ".txt"));
 
@@ -409,7 +421,7 @@ public class main {
         }
 
         for (int i = 0; i < cards.size(); i++) {    // Add each card from the copy array to the randomized array in a random order
-            int targetIndex = (int)Math.floor(Math.random() * cardsCopy.size());        // Select a random index of the temporary array copy
+            int targetIndex = (int)Math.floor(Math.random() * cardsCopy.size());        // Select a random index that exists in the temporary array copy
             randomizedCards.add(cardsCopy.get(targetIndex));                            // Add the flash card at the selected index to a randomized array
             cardsCopy.remove(targetIndex);                                              // Remove that same card from the copy array
         }
