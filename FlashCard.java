@@ -5,16 +5,17 @@
  * user has gotten the card wrong
  *
  * @author Logan Gierahn
- * @version November 26, 2026
+ * @version November 27, 2026
  *
 */
 
 public class FlashCard {
 
-    private String question;
-    private String answer;
-    private int numCorrect = 0;
-    private int numIncorrect = 0;
+    private String question;                            // question contains the question
+    private String answer;                              // answer contains the answer
+    private int numCorrect = 0;                         // numCorrect contains the number of times the user has gotten the card correct
+    private int numIncorrect = 0;                       // numIncorrect contains the number of times the user has gotten the card incorrect
+    private boolean favorite = false;                   // If favorite is true, user has labeled the card as a favorite
 
 
     FlashCard(String question, String answer) {
@@ -23,12 +24,13 @@ public class FlashCard {
         this.answer = answer;
     }
 
-    FlashCard(String question, String answer, int numCorrect, int numIncorrect) {
+    FlashCard(String question, String answer, int numCorrect, int numIncorrect, boolean favorite) {
 
         this.question = question;
         this.answer = answer;
         this.numCorrect = numCorrect;
         this.numIncorrect = numIncorrect;
+        this.favorite = favorite;
     }
 
 
@@ -48,6 +50,10 @@ public class FlashCard {
         return numIncorrect;
     }
 
+    public boolean getFavoriteStatus() {
+        return favorite;
+    }
+
 
     public void setQuestion(String question) {
         this.question = question;
@@ -63,5 +69,13 @@ public class FlashCard {
 
     public void addIncorrect() {
         numIncorrect++;
+    }
+
+    public void toggleFavorite() {
+        if (favorite == true) {
+            favorite = false;
+        } else {
+            favorite = true;
+        }
     }
 }

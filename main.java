@@ -95,7 +95,8 @@ public class main {
         while (!(flashCardData == null)) {                                                          // While there is still data in the file, use .split to make an array containing
                                                                                                     // each flash card's data, then use this data to create a new Flash card
             String[] flashCardDataArray = flashCardData.split(",");                                 // and add it to the cards arraylist
-            FlashCard flashCard = new FlashCard(flashCardDataArray[0], flashCardDataArray[1], Integer.parseInt(flashCardDataArray[2]), Integer.parseInt(flashCardDataArray[3]));
+            FlashCard flashCard = new FlashCard(flashCardDataArray[0], flashCardDataArray[1], Integer.parseInt(flashCardDataArray[2]),
+                    Integer.parseInt(flashCardDataArray[3]), Boolean.parseBoolean(flashCardDataArray[4]));
 
             cards.add(flashCard);
             flashCardData = input.readLine();
@@ -383,7 +384,8 @@ public class main {
 
         for (int i = 0; i < cards.size(); i++) {
 
-            output.write(cards.get(i).getQuestion() + "," + cards.get(i).getAnswer() + "," + cards.get(i).getNumCorrect() + "," + cards.get(i).getNumIncorrect() + "\n");
+            output.write(cards.get(i).getQuestion() + "," + cards.get(i).getAnswer() + "," + cards.get(i).getNumCorrect()
+                    + "," + cards.get(i).getNumIncorrect() + "," + cards.get(i).getFavoriteStatus() + "\n");
         }
 
         output.close();
@@ -406,6 +408,7 @@ public class main {
             IO.println("Answer: " + cards.get(i).getAnswer());
             IO.println("Times Correct: " + cards.get(i).getNumCorrect());
             IO.println("Times Incorrect: " + cards.get(i).getNumIncorrect());
+            IO.println("Favorite status: " + cards.get(i).getFavoriteStatus());
             IO.println();
         }
     }
