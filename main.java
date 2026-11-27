@@ -55,7 +55,7 @@ public class main {
                 userAnswer = IO.readln();
 
 
-                while (!(userAnswer.equals("yes") || userAnswer.equals("no"))) {                // Repeatedly ask for user input until it is either "yes" or "no"
+                while (userAnswer == null || !(userAnswer.equals("yes") || userAnswer.equals("no"))) {      // Repeatedly ask for user input until it is either "yes" or "no"
 
                     IO.println("Invalid response, please input \"yes\" or \"no\"");
                     userAnswer = IO.readln();
@@ -109,7 +109,7 @@ public class main {
             IO.println("Would you like to view cards, test, or exit?");
             userAnswer = IO.readln();
 
-            while (!(userAnswer.equals("view") || userAnswer.equals("test") || userAnswer.equals("exit"))) {
+            while (userAnswer == null || !(userAnswer.equals("view") || userAnswer.equals("test") || userAnswer.equals("exit"))) {
 
                 IO.println("Invalid response, please input \"view\", \"test\", or \"exit\"");
                 userAnswer = IO.readln();
@@ -150,23 +150,23 @@ public class main {
             IO.println("Would you like to add a card, edit a card, or return?");
             userAnswer = IO.readln();
 
-            while (!(userAnswer.equals("add") || userAnswer.equals("edit") || userAnswer.equals("return"))) {   // Ask user if they would like to "add", "edit", or "return"
-                                                                                                                // until they type a valid input
-                IO.println("Invalid response, please input \"add\", \"edit\", or \"return\"");
+            while (userAnswer == null || !(userAnswer.equals("add") || userAnswer.equals("edit") || userAnswer.equals("return"))) {
+                                                                                                                // Ask user if they would like to "add", "edit", or "return"
+                IO.println("Invalid response, please input \"add\", \"edit\", or \"return\"");                  // until they type a valid input
                 userAnswer = IO.readln();
             }
 
             if (userAnswer.equals("add")) {                     // If user selects add, ask for the question and answer until valid inputs
-                                                                // A valid input cannot have a comma (messes up file) or be empty (messes up reading file)
-                IO.println("What is the question?");            // After the question and answer are gotten, create a new flashcard and update the file
-                String question = IO.readln();
+                                                                // A valid input cannot have a comma (messes up file) or an empty string (messes up reading file)
+                IO.println("What is the question?");            // A valid input cannot be null, as this causes .equals() to throw an error
+                String question = IO.readln();                  // After the question and answer are gotten, create a new flashcard and update the file
 
                 while (true) {
 
-                    if (question.indexOf(",") != -1) {
-                        IO.println("Question cannot contain commas. Try again");
-                    } else if (question == null || question.equals("")) {
+                    if (question == null || question.equals("")) {
                         IO.println("What is the question?");
+                    } else if (question.indexOf(",") != -1) {
+                        IO.println("Question cannot contain commas. Try again");
                     } else {
                         break;
                     }
@@ -177,18 +177,18 @@ public class main {
                 IO.println("What is the answer?");
                 String answer = IO.readln();
 
-                    while (true) {
+                while (true) {
 
-                        if (answer.indexOf(",") != -1) {
-                            IO.println("Answer cannot contain commas. Try again");
-                        } else if (answer == null || answer.equals("")) {
-                            IO.println("What is the answer?");
-                        } else {
-                            break;
-                        }
-
-                        answer = IO.readln();
+                    if (answer == null || answer.equals("")) {
+                        IO.println("What is the answer?");
+                    } else if (answer.indexOf(",") != -1) {
+                        IO.println("Answer cannot contain commas. Try again");
+                    } else {
+                        break;
                     }
+
+                    answer = IO.readln();
+                }
 
                 cards.add(new FlashCard(question, answer));
                 updateFile(cards, fileName);
@@ -234,7 +234,7 @@ public class main {
                     IO.println(", delete, or quit?");
                     userAnswer = IO.readln();
 
-                    while (!(userAnswer.equals("question") || userAnswer.equals("answer") || userAnswer.equals("unfavorite") || userAnswer.equals("favorite")
+                    while (userAnswer == null || !(userAnswer.equals("question") || userAnswer.equals("answer") || userAnswer.equals("unfavorite") || userAnswer.equals("favorite")
                             || userAnswer.equals("delete") || userAnswer.equals("quit"))) {
 
                         IO.print("Invalid response, please input \"question\", \"answer\", ");
@@ -255,10 +255,10 @@ public class main {
 
                         while (true) {
 
-                            if (question.indexOf(",") != -1) {
-                                IO.println("Question cannot contain commas. Try again");
-                            } else if (question == null || question.equals("")) {
+                            if (question == null || question.equals("")) {
                                 IO.println("What is the question?");
+                            } else if (question.indexOf(",") != -1) {
+                                IO.println("Question cannot contain commas. Try again");
                             } else {
                                 break;
                             }
@@ -276,10 +276,10 @@ public class main {
 
                         while (true) {
 
-                            if (answer.indexOf(",") != -1) {
-                                IO.println("Answer cannot contain commas. Try again");
-                            } else if (answer == null || answer.equals("")) {
+                            if (answer == null || answer.equals("")) {
                                 IO.println("What is the answer?");
+                            } else if (answer.indexOf(",") != -1) {
+                                IO.println("Answer cannot contain commas. Try again");
                             } else {
                                 break;
                             }
@@ -334,7 +334,7 @@ public class main {
 
         userAnswer = IO.readln();
 
-        while (!(userAnswer.equals("yes") || userAnswer.equals("no"))) {                // Repeatedly ask for user input until it is either "yes" or "no"
+        while (userAnswer == null || !(userAnswer.equals("yes") || userAnswer.equals("no"))) {          // Repeatedly ask for user input until it is either "yes" or "no"
 
             IO.println("Invalid response, please input \"yes\" or \"no\"");
             userAnswer = IO.readln();
@@ -349,7 +349,7 @@ public class main {
 
         userAnswer = IO.readln();
 
-        while (!(userAnswer.equals("yes") || userAnswer.equals("no"))) {                // Repeatedly ask for user input until it is either "yes" or "no"
+        while (userAnswer == null || !(userAnswer.equals("yes") || userAnswer.equals("no"))) {          // Repeatedly ask for user input until it is either "yes" or "no"
 
             IO.println("Invalid response, please input \"yes\" or \"no\"");
             userAnswer = IO.readln();
