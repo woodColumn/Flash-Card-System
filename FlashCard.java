@@ -1,7 +1,8 @@
 /**
  * Flash card
  *
- * Flash card that contains a question and an answer
+ * Flash card that contains a question, answer, number of times user has gotten the card correct, and number of times the
+ * user has gotten the card wrong
  *
  * @author Logan Gierahn
  * @version November 26, 2026
