@@ -113,6 +113,10 @@ public class main {
 
             }
 
+            if (userAnswer.equals("study")) {
+                
+            }
+
         }
 
 
@@ -303,6 +307,25 @@ public class main {
             IO.println("Answer: " + cards.get(i).getAnswer());
             IO.println();
         }
+    }
+
+
+    public ArrayList<FlashCard> randomizeOrder(ArrayList<FlashCard> cards) {
+
+        ArrayList<FlashCard> cardsCopy = new ArrayList<FlashCard>();
+        ArrayList<FlashCard> randomizedCards = new ArrayList<FlashCard>();
+
+        for (int i = 0; i < cards.size(); i++) {
+            cardsCopy.add(cards.get(i));
+        }
+
+        for (int i = 0; i < cards.size(); i++) {
+            int targetIndex = (int)Math.floor(Math.random() * cardsCopy.size());
+            randomizedCards.add(cardsCopy.get(targetIndex));
+            cardsCopy.remove(targetIndex);
+        }
+
+        return randomizedCards;
     }
 
 }
