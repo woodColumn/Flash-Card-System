@@ -225,12 +225,26 @@ public class main {
                     }
 
 
-                    IO.println("Would you like to change the question, change the answer, delete, or quit?");       // Asks user how they would like to edit the card until valid input
+                    IO.print("Would you like to change the question, change the answer, ");       // Asks user how they would like to edit the card until valid input
+                    if (cards.get(cardNumber - 1).getFavoriteStatus()) {
+                        IO.print("unfavorite");
+                    } else {
+                        IO.print("favorite");
+                    }
+                    IO.println(", delete, or quit?");
                     userAnswer = IO.readln();
 
-                    while (!(userAnswer.equals("question") || userAnswer.equals("answer") || userAnswer.equals("delete") || userAnswer.equals("quit"))) {
+                    while (!(userAnswer.equals("question") || userAnswer.equals("answer") || userAnswer.equals("unfavorite") || userAnswer.equals("favorite")
+                            || userAnswer.equals("delete") || userAnswer.equals("quit"))) {
 
-                        IO.println("Invalid response, please input \"question\", \"answer\", \"delete\", or \"quit\"");
+                        IO.print("Invalid response, please input \"question\", \"answer\", ");
+                        if (cards.get(cardNumber - 1).getFavoriteStatus()) {
+                            IO.print("\"unfavorite\"");
+                        } else {
+                            IO.print("\"favorite\"");
+                        }
+                        IO.println(", \"delete\", or \"quit\"");
+
                         userAnswer = IO.readln();
                     }
 
@@ -281,11 +295,28 @@ public class main {
                         cards.remove(cardNumber - 1);
                         updateFile(cards, fileName);
 
+                    } else if (userAnswer.equals("unfavorite")) {
+
+                        if (cards.get(cardNumber - 1).getFavoriteStatus()) {
+                            cards.get(cardNumber - 1).toggleFavorite();
+                            updateFile(cards, fileName);
+                        } else {
+                            IO.println("\nThis card is already not favorited");
+                        }
+
+                    } else if (userAnswer.equals("favorite")) {
+
+                        if (cards.get(cardNumber - 1).getFavoriteStatus()) {
+                            IO.println("\nThis card is already favorited");
+                        } else {
+                            cards.get(cardNumber - 1).toggleFavorite();
+                            updateFile(cards, fileName);
+                        }
                     }
 
                 }
 
-            } else {        // If the user didn't type either "add" or "edit", they must've typed return. Returns to main loop.
+            } else {        // If the user didn't type either "add", "edit", "unfavorite", or "favorite", they must've typed return. Returns to main loop.
                 return;
             }
         }
