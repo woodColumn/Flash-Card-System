@@ -43,9 +43,9 @@ Java Main
 
 ## Roadmap
 
-- ``Ability to “favorite” certain cards and only study those``
+- `Ability to “favorite” certain cards and only study those`
 - Ability to switch files within program
-- ``Randomized question display order``
+- `Randomized question display order`
 - Way to organize cards based on number of times gotten incorrect/correct or ratio
 
 ## Author
