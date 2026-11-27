@@ -115,6 +115,8 @@ public class main {
 
             if (userAnswer.equals("study")) {
 
+                studyCards(cards, fileName);
+
             }
 
         }
@@ -274,6 +276,80 @@ public class main {
             } else {        // If the user didn't type either "add" or "edit", they must've typed return. Returns to main loop.
                 return;
             }
+        }
+    }
+
+    public void studyCards(ArrayList<FlashCard> cards, String fileName) throws IOException {
+
+        boolean showAnswers = false;                    // If true, show the correct answer when user gives incorrect answer
+        boolean random = false;                         // If true, display questions in a random order
+        String userAnswer;
+
+
+        IO.println("Randomize order?");
+
+        userAnswer = IO.readln();
+
+        while (!(userAnswer.equals("yes") || userAnswer.equals("no"))) {                // Repeatedly ask for user input until it is either "yes" or "no"
+
+            IO.println("Invalid response, please input \"yes\" or \"no\"");
+            userAnswer = IO.readln();
+        }
+
+        if (userAnswer.equals("yes")) {             // If user selects yes, flag random order as true
+            random = true;
+        }
+
+
+        IO.println("Show answers?");
+
+        userAnswer = IO.readln();
+
+        while (!(userAnswer.equals("yes") || userAnswer.equals("no"))) {                // Repeatedly ask for user input until it is either "yes" or "no"
+
+            IO.println("Invalid response, please input \"yes\" or \"no\"");
+            userAnswer = IO.readln();
+        }
+
+        if (userAnswer.equals("yes")) {             // If user selects yes, flag show answers as true
+            showAnswers = true;
+        }
+
+
+        ArrayList<FlashCard> testCards;             // Arraylist of cards that will be used for the test
+
+        if (random) {                               // If user had chosen to randomize, get a random order for the test cards
+            testCards = randomizeOrder(cards);
+        } else {
+            testCards = cards;                      // If user had chosen not to randomize, set test cards equal to the main cards arrayList
+        }
+
+
+        for (int i = 0; i < cards.size(); i++) {                // For each card in the test arraylist, display the question, get user answer,
+                                                                // and respond accordingly
+            IO.println(testCards.get(i).getQuestion());
+            String answer = IO.readln();
+            IO.println();
+
+            if (answer.equals(testCards.get(i).getAnswer())) {  // If user answer is correct, inform them and update the amount correct
+
+                IO.println("Correct !\n");
+
+                testCards.get(i).addCorrect();
+
+            } else {
+
+                IO.println("Incorrect !\n");                    // If user answer is incorrect, inform them and update the amount incorrect
+
+                testCards.get(i).addIncorrect();
+
+                if (showAnswers) {                                                      // If user had selected to show answers, show the answer
+                    IO.println("Correct Answer: " + testCards.get(i).getAnswer());
+                    IO.println();
+                }
+            }
+
+            updateFile(cards, fileName);
         }
     }
 
