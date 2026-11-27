@@ -127,8 +127,11 @@ public class main {
 
             if (userAnswer.equals("test")) {
 
-                testCards(cards, fileName);
-
+                if (cards.size() == 0) {
+                    IO.println("\nNo cards to test with\n");
+                } else {
+                    testCards(cards, fileName);
+                }
             }
 
         }
