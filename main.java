@@ -380,14 +380,25 @@ public class main {
 
         ArrayList<FlashCard> testCards;             // Arraylist of cards that will be used for the test
 
-        if (random) {                               // If user had chosen to randomize, get a random order for the test cards
-            testCards = randomizeOrder(cards);
+        if (onlyFavorite) {
+
+            if (random) {                                               // If user had chosen to randomize and use favorites,
+                testCards = randomizeOrder(getOnlyFavorites(cards));    // set test cards equal to a randomized order of favorite cards
+            } else {                                                    // from the main cards arraylist
+                testCards = getOnlyFavorites(cards);                    // If user had chosen not to randomize but to use favorites,
+            }                                                           // set test cards equal to the favorite cards from the main cards arrayList
+
         } else {
-            testCards = cards;                      // If user had chosen not to randomize, set test cards equal to the main cards arrayList
+
+            if (random) {                               // If user had chosen to randomize but not use favorites,
+                testCards = randomizeOrder(cards);      // set test cards equal to a randomized order of the main cards arrayList
+            } else {
+                testCards = cards;                      // If user had chosen not to randomize or use favorites,
+            }                                           // set test cards equal to the main cards arrayList
+
         }
 
-
-        for (int i = 0; i < cards.size(); i++) {                // For each card in the test arraylist, display the question, get user answer,
+        for (int i = 0; i < testCards.size(); i++) {                // For each card in the test arraylist, display the question, get user answer,
                                                                 // and respond accordingly
             IO.println(testCards.get(i).getQuestion());
             String answer = IO.readln();
@@ -428,9 +439,9 @@ public class main {
         IO.println();
         IO.println("Number correct: " + testCorrectNum);
         IO.println();
-        IO.println("Number incorrect: " + (cards.size() - testCorrectNum));
+        IO.println("Number incorrect: " + (testCards.size() - testCorrectNum));
         IO.println();
-        IO.println("Percent correct: " + String.format("%.2f", ((double)testCorrectNum / cards.size()) * 100) + "%");
+        IO.println("Percent correct: " + String.format("%.2f", ((double)testCorrectNum / testCards.size()) * 100) + "%");
         IO.println();
     }
 
