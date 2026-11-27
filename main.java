@@ -393,6 +393,14 @@ public class main {
             String answer = IO.readln();
             IO.println();
 
+            while (answer == null) {                        // Prevents user from entering null as there answer.
+                                                                // Null previously resulted in an incorrect answer, but through
+                IO.println(testCards.get(i).getQuestion());     // testing I found that when control + C was pressed to reset
+                answer = IO.readln();                           // terminal, updateFile() would be called and fileWriter
+                IO.println();                                   // would open, but then be forcibly closed before it could
+                                                                // be updated, resulting in corrupted data
+            }
+
             if (answer.equals(testCards.get(i).getAnswer())) {  // If user answer is correct, inform them and update the amount correct
 
                 IO.println("Correct !\n");
@@ -473,7 +481,7 @@ public class main {
         }
 
         for (int i = 0; i < cards.size(); i++) {    // Add each card from the copy array to the randomized array in a random order
-            int targetIndex = (int)Math.floor(Math.random() * cardsCopy.size());        // Select a random index that exists in the temporary array copy
+            int targetIndex = (int)Math.floor(Math.random() * cardsCopy.size());        // Select a random index that exists in the temporary arraylist copy
             randomizedCards.add(cardsCopy.get(targetIndex));                            // Add the flash card at the selected index to a randomized array
             cardsCopy.remove(targetIndex);                                              // Remove that same card from the copy array
         }
@@ -482,8 +490,23 @@ public class main {
     }
 
 
+    public ArrayList<FlashCard> getOnlyFavorites(ArrayList<FlashCard> cards) {      // Returns an arraylist containing all the cards marked as "favorite"
+                                                                                    // in the given arraylist
+        ArrayList<FlashCard> favoriteCards = new ArrayList<FlashCard>();
+
+        for (int i = 0; i < cards.size(); i++) {                // Check each card in the given cards arraylist and add it to the favorites
+                                                                // arraylist if it is favorited
+            if (cards.get(i).getFavoriteStatus()) {
+                favoriteCards.add(cards.get(i));
+            }
+        }
+
+        return favoriteCards;
+    }
+
+
     public boolean checkFavoriteExists(ArrayList<FlashCard> cards) {        // Returns true if at least one card in the given
-                                                                            // array is marked as favorite
+                                                                            // arraylist is marked as favorite
         for (int i = 0; i < cards.size(); i++) {
 
             if (cards.get(i).getFavoriteStatus()) {
