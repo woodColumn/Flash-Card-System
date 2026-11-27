@@ -6,6 +6,17 @@ import java.io.IOException;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ *  Flash Card System Main
+ *
+ * Flash card system. Allows users to view flash cards or study. After viewing cards, allows users to add, edit, and delete cards.
+ * Flash card data is saved to a file in csv format, and can be read upon starting the program if an existing flash card set is inputted.
+ *
+ * @author Logan Gierahn
+ * @version November 26, 2026
+ *
+ */
+
 public class main {
 
     void main () throws IOException {
