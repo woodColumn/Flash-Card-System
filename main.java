@@ -71,8 +71,8 @@ public class main {
             }
         }
 
-        String flashCardData;                   // String to contain one line of the flash card set file (question,answer)
-
+        String flashCardData;                   // String to contain one line of the flash card set file
+                                                // File format: (question,answer,number of times user got correct, number oftimes user got incorrect)
         try {
 
             flashCardData = input.readLine();   // Read in one line of the file
@@ -82,9 +82,9 @@ public class main {
         }
 
         while (!(flashCardData == null)) {                                                          // While there is still data in the file, use .split to make an array containing
-                                                                                                    // each flash card's data, then use this data to create a new Flash card and
-            String[] flashCardDataArray = flashCardData.split(",");                                 // add it to the cards arraylist
-            FlashCard flashCard = new FlashCard(flashCardDataArray[0], flashCardDataArray[1]);
+                                                                                                    // each flash card's data, then use this data to create a new Flash card
+            String[] flashCardDataArray = flashCardData.split(",");                                 // and add it to the cards arraylist
+            FlashCard flashCard = new FlashCard(flashCardDataArray[0], flashCardDataArray[1], Integer.parseInt(flashCardDataArray[2]), Integer.parseInt(flashCardDataArray[3]));
 
             cards.add(flashCard);
             flashCardData = input.readLine();
@@ -114,7 +114,7 @@ public class main {
             }
 
             if (userAnswer.equals("study")) {
-                
+
             }
 
         }
@@ -284,7 +284,7 @@ public class main {
 
         for (int i = 0; i < cards.size(); i++) {
 
-            output.write(cards.get(i).getQuestion() + "," + cards.get(i).getAnswer() + "\n");
+            output.write(cards.get(i).getQuestion() + "," + cards.get(i).getAnswer() + "," + cards.get(i).getNumCorrect() + "," + cards.get(i).getNumIncorrect() + "\n");
         }
 
         output.close();
@@ -305,24 +305,26 @@ public class main {
             IO.println("#" + (i + 1));
             IO.println("Question: " + cards.get(i).getQuestion());
             IO.println("Answer: " + cards.get(i).getAnswer());
+            IO.println("Times Correct: " + cards.get(i).getNumCorrect());
+            IO.println("Times Incorrect: " + cards.get(i).getNumIncorrect());
             IO.println();
         }
     }
 
 
-    public ArrayList<FlashCard> randomizeOrder(ArrayList<FlashCard> cards) {
+    public ArrayList<FlashCard> randomizeOrder(ArrayList<FlashCard> cards) {            // Function that returns a copy of the flash card array
+                                                                                        // in random order
+        ArrayList<FlashCard> cardsCopy = new ArrayList<FlashCard>();        // Array that holds original cards
+        ArrayList<FlashCard> randomizedCards = new ArrayList<FlashCard>();  // Array that will hold original cards, in a randomized order
 
-        ArrayList<FlashCard> cardsCopy = new ArrayList<FlashCard>();
-        ArrayList<FlashCard> randomizedCards = new ArrayList<FlashCard>();
-
-        for (int i = 0; i < cards.size(); i++) {
-            cardsCopy.add(cards.get(i));
+        for (int i = 0; i < cards.size(); i++) {                                        // Add each flash card from the original arraylist into
+            cardsCopy.add(cards.get(i));                                                // a temporary copy
         }
 
-        for (int i = 0; i < cards.size(); i++) {
-            int targetIndex = (int)Math.floor(Math.random() * cardsCopy.size());
-            randomizedCards.add(cardsCopy.get(targetIndex));
-            cardsCopy.remove(targetIndex);
+        for (int i = 0; i < cards.size(); i++) {    // Add each card from the copy array to the randomized array in a random order
+            int targetIndex = (int)Math.floor(Math.random() * cardsCopy.size());        // Select a random index of the temporary array copy
+            randomizedCards.add(cardsCopy.get(targetIndex));                            // Add the flash card at the selected index to a randomized array
+            cardsCopy.remove(targetIndex);                                              // Remove that same card from the copy array
         }
 
         return randomizedCards;

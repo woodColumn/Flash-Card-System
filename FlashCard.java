@@ -12,12 +12,24 @@ public class FlashCard {
 
     private String question;
     private String answer;
+    private int numCorrect = 0;
+    private int numIncorrect = 0;
+
 
     FlashCard(String question, String answer) {
 
         this.question = question;
         this.answer = answer;
     }
+
+    FlashCard(String question, String answer, int numCorrect, int numIncorrect) {
+
+        this.question = question;
+        this.answer = answer;
+        this.numCorrect = numCorrect;
+        this.numIncorrect = numIncorrect;
+    }
+
 
     public String getQuestion() {
         return question;
@@ -27,11 +39,28 @@ public class FlashCard {
         return answer;
     }
 
+    public int getNumCorrect() {
+        return numCorrect;
+    }
+
+    public int getNumIncorrect() {
+        return numIncorrect;
+    }
+
+
     public void setQuestion(String question) {
         this.question = question;
     }
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+
+    public void setNumCorrect(int numCorrect) {
+        this.numCorrect = numCorrect;
+    }
+
+    public void setNumIncorrect() {
+        this.numIncorrect = numIncorrect;
     }
 }
